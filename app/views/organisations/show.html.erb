@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @organisation.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @organisation.address %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @organisation.owner %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag url_for(@organisation.image) if @organisation.image.attached? %>
+</p>
+
+
+<p>
+  <strong>Web Links:</strong>
+  <%= @organisation.web_links %>
+</p>
+
+<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
+<%= link_to 'Back', organisations_path %>
