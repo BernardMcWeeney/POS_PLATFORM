@@ -1,5 +1,4 @@
 class Group < ApplicationRecord
-  has_many :users
   belongs_to :organisation
-
+  has_and_belongs_to_many :users
 end

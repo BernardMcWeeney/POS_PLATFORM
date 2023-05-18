@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pages/index'
+  get 'home/index'
   get 'groups/index'
   get 'groups/show'
   get 'groups/new'
@@ -8,7 +10,8 @@ Rails.application.routes.draw do
   get 'groups/destroy'
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root to: "organisations#index"
+  root to: "pages#index"
+  
   resources :organisations
   resources :groups
   # Defines the root path route ("/")

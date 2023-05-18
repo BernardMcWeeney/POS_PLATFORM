@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
   end
 
   def update
+    #authorize @group
     if @group.update(group_params)
       redirect_to @group, notice: 'Group was successfully updated.'
     else
@@ -36,6 +37,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
+    #authorize @group
     @group.destroy
     redirect_to groups_url, notice: 'Group was successfully destroyed.'
   end

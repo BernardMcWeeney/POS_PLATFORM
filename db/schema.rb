@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_162850) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_184200) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_162850) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organisation_id"], name: "index_groups_on_organisation_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_memberships_on_organisation_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -95,4 +104,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_162850) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "groups", "organisations"
+  add_foreign_key "memberships", "organisations"
+  add_foreign_key "memberships", "users"
 end

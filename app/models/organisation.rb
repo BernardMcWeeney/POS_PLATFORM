@@ -1,4 +1,8 @@
 class Organisation < ApplicationRecord
-    has_one_attached :image
+    has_many :memberships
+    has_many :users, through: :memberships
     has_many :groups
-end
+
+    has_one_attached :image
+  end
+  
