@@ -1,0 +1,12 @@
+<% @groups.each do |group| %>
+  <p>
+    <strong>Name:</strong>
+    <%= group.name %>
+    <strong>Organisation ID:</strong>
+    <%= group.organisation_id %>
+    <%= link_to 'Show', group %> |
+    <%= link_to 'Edit', edit_group_path(group) %> |
+    <%= button_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>
+<%= link_to 'New Group', new_group_path %>

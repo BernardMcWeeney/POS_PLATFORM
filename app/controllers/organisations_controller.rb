@@ -6,6 +6,8 @@ class OrganisationsController < ApplicationController
     end
   
     def show
+      @groups = @organisation.groups
+
     end
   
     def new
