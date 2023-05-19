@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_155236) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_19_205557) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_155236) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "post_town"
+    t.string "county"
+    t.string "eircode"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -58,9 +70,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_155236) do
 
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.integer "group_id"
     t.integer "organisation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id"
     t.index ["organisation_id"], name: "index_memberships_on_organisation_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
@@ -100,6 +114,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_155236) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.boolean "onboarding_completed", default: false
+    t.integer "address_id"
+    t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -115,7 +132,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_155236) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "users"
   add_foreign_key "groups", "organisations"
+  add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "organisations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "users", "addresses"
 end

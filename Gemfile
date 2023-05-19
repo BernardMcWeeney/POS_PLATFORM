@@ -73,3 +73,5 @@ end
 gem 'rolify'
 gem 'devise'
 gem 'pundit'
+gem 'wicked'
+gem 'rails-erd'

@@ -1,3 +1,7 @@
+<h1>Groups</h1>
+
+<%= link_to 'New Group', new_group_path %>
+
 <% @groups.each do |group| %>
   <p>
     <strong>Name:</strong>
@@ -9,4 +13,3 @@
     <%= button_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %>
   </p>
 <% end %>
-<%= link_to 'New Group', new_group_path %>

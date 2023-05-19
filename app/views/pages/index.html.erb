@@ -2,6 +2,3 @@
 <% if @current_user %>
   <p>Role: <%= @current_user.roles.first.name if @current_user.roles.present? %></p>
 <% end %>
-
-<%= link_to 'Organisations', organisations_url %>
-<%= link_to 'Groups', groups_url %>

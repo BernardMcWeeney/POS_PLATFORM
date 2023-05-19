@@ -82,6 +82,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    choice (0.2.0)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
@@ -161,6 +162,11 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-erd (1.7.2)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
     railties (7.0.4.3)
@@ -180,6 +186,8 @@ GEM
       railties (>= 5.2)
     rexml (3.2.5)
     rolify (6.0.1)
+    ruby-graphviz (1.2.5)
+      rexml
     rubyzip (2.3.2)
     selenium-webdriver (4.9.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -218,6 +226,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked (2.0.0)
+      railties (>= 3.0.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.8)
@@ -235,6 +245,7 @@ DEPENDENCIES
   puma (~> 5.0)
   pundit
   rails (~> 7.0.4, >= 7.0.4.3)
+  rails-erd
   redis (~> 4.0)
   rolify
   selenium-webdriver
@@ -245,6 +256,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
+  wicked
 
 RUBY VERSION
    ruby 2.7.6p219

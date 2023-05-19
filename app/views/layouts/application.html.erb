@@ -14,6 +14,11 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
+    <%= link_to 'Dashboard', root_url %>
+    <%= link_to 'Organisations', organisations_url %>
+    <%= link_to 'Groups', groups_url %>
+
+    <%= yield %>
     <% if user_signed_in? %>
       <p>Welcome, <%= current_user.email %></p>
       <%= link_to "Edit profile", edit_user_registration_path %><br>
@@ -23,6 +28,5 @@
       <%= link_to "Login", new_user_session_path %>
     <% end %>
 
-    <%= yield %>
   </body>
 </html>

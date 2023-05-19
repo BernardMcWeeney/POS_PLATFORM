@@ -3,7 +3,9 @@ class User < ApplicationRecord
   
   has_many :memberships
   has_many :organisations, through: :memberships
-  has_and_belongs_to_many :groups
+  has_many :groups, through: :memberships
+  has_one :address, dependent: :destroy, inverse_of: :user, autosave: true
+  accepts_nested_attributes_for :address
 
   validates :first_name, presence: true
   
@@ -12,18 +14,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  # def set_default_role
-  #   if self.group.nil?
-  #     self.add_role :group_manager
-  #   else
-  #     self.add_role :group_user
-  #   end
-  # end
+ 
+  after_create :assign_default_role
 
-  # after_create :assign_default_role
+  def assign_default_role
+    self.add_role(:platform_user) if self.roles.blank?
+  end
 
-  # def assign_default_role
-  #   self.add_role(:superuser) if self.roles.blank?
-  # end
-        
+  def onboarding_incomplete?
+    !self.onboarding_completed
+  end
+  
+
 end

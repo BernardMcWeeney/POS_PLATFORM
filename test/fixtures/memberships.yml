@@ -2,8 +2,10 @@
 
 one:
   user: one
+  group: one
   organisation: one
 
 two:
   user: two
+  group: two
   organisation: two
