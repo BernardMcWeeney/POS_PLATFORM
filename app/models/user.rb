@@ -4,11 +4,13 @@ class User < ApplicationRecord
   has_many :memberships
   has_many :organisations, through: :memberships
   has_and_belongs_to_many :groups
+
+  validates :first_name, presence: true
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   # def set_default_role
   #   if self.group.nil?

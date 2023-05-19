@@ -1,2 +1,7 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+<h1>Welcome to the Home Page</h1>
+<% if @current_user %>
+  <p>Role: <%= @current_user.roles.first.name if @current_user.roles.present? %></p>
+<% end %>
+
+<%= link_to 'Organisations', organisations_url %>
+<%= link_to 'Groups', groups_url %>
