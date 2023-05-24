@@ -4,7 +4,8 @@ class MembershipsController < ApplicationController
   def index
     @memberships = Membership.all
   end
-
+  
+  
   def show
     @group = @membership.group
     @organisation = @group.organisation if @group
@@ -18,8 +19,9 @@ class MembershipsController < ApplicationController
 
   def create
     @membership = Membership.new(membership_params)
-    
-    
+    @membership.user_id = params[:membership][:user_id]
+    @membership.organisation_id = Group.find(params[:membership][:group_id]).organisation_id
+  
     if @membership.save
       redirect_to @membership, notice: 'Membership was successfully created.'
     else
@@ -34,10 +36,12 @@ class MembershipsController < ApplicationController
     if @membership.update(membership_params)
       redirect_to @membership, notice: 'Membership was successfully updated.'
     else
+      puts "Update failed"
+      puts @membership.errors.full_messages
       render :edit
     end
   end
-
+  
   def destroy
     @membership.destroy
     redirect_to memberships_url, notice: 'Membership was successfully destroyed.'

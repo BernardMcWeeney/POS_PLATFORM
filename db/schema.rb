@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_23_161055) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_161055) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "association_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "association_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["association_id"], name: "index_association_memberships_on_association_id"
+    t.index ["user_id", "association_id"], name: "index_association_memberships_on_user_id_and_association_id", unique: true
+    t.index ["user_id"], name: "index_association_memberships_on_user_id"
+  end
+
+  create_table "associations", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_associations_on_group_id"
+  end
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+    t.index ["user_id", "group_id"], name: "index_group_memberships_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_group_memberships_on_user_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -61,6 +88,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_161055) do
     t.index ["organisation_id"], name: "index_groups_on_organisation_id"
   end
 
+  create_table "location_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_location_memberships_on_location_id"
+    t.index ["user_id"], name: "index_location_memberships_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.integer "group_id", null: false
+    t.integer "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_locations_on_group_id"
+    t.index ["organisation_id"], name: "index_locations_on_organisation_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id"
@@ -70,6 +116,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_161055) do
     t.index ["group_id"], name: "index_memberships_on_group_id"
     t.index ["organisation_id"], name: "index_memberships_on_organisation_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "organisation_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_organisation_memberships_on_organisation_id"
+    t.index ["user_id", "organisation_id"], name: "index_organisation_memberships_on_user_id_and_organisation_id", unique: true
+    t.index ["user_id"], name: "index_organisation_memberships_on_user_id"
   end
 
   create_table "organisations", force: :cascade do |t|
@@ -107,7 +163,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_161055) do
     t.string "first_name"
     t.string "last_name"
     t.boolean "onboarding_completed", default: false
-    t.string "confirmation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -122,8 +177,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_161055) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "association_memberships", "associations"
+  add_foreign_key "association_memberships", "users"
+  add_foreign_key "associations", "groups"
+  add_foreign_key "group_memberships", "groups"
+  add_foreign_key "group_memberships", "users"
   add_foreign_key "groups", "organisations"
+  add_foreign_key "location_memberships", "locations"
+  add_foreign_key "location_memberships", "users"
+  add_foreign_key "locations", "groups"
+  add_foreign_key "locations", "organisations"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "organisations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "organisation_memberships", "organisations"
+  add_foreign_key "organisation_memberships", "users"
 end

@@ -4,9 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  has_many :memberships
-  has_many :organisations, through: :memberships
-  has_many :groups, through: :memberships
+  has_many :organisation_memberships
+  has_many :organisations, through: :organisation_memberships
+  has_many :group_memberships
+  has_many :groups, through: :group_memberships
+  has_many :location_memberships
+  has_many :locations, through: :location_memberships
   validates :first_name, presence: true
 
   rolify

@@ -4,7 +4,7 @@
   <p>
     <%= membership.user.email %> - <%= membership.organisation.name %> - <%= membership.group.name if membership.group.present? %>
     <%= link_to 'Show', membership %> |
-    <%= link_to 'Delete', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= button_to 'Delete', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
   </p>
 <% end %>
 
