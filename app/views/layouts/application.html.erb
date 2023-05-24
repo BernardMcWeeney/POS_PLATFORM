@@ -11,14 +11,30 @@
   </head>
 
   <body>
+  <header>
+    <ul>
+      <li><%= link_to 'Dashboard', root_url %></li>
+      <li><a href="#news">News</a></li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Structures</a>
+        <div class="dropdown-content">
+          <%= link_to 'Organisations', organisations_url %>
+          <%= link_to 'Groups', groups_url %>
+          <%= link_to 'Locations', locations_url %>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Memberships</a>
+        <div class="dropdown-content">
+          <%= link_to 'Memberships', memberships_url %>
+          <%= link_to 'Blank', memberships_url %>
+          <%= link_to 'Blank', memberships_url %>
+        </div>
+      </li>
+    </ul>
+  </header>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-
-    <%= link_to 'Dashboard', root_url %>
-    <%= link_to 'Organisations', organisations_url %>
-    <%= link_to 'Groups', groups_url %>
-    <%= link_to 'Locations', locations_url %>
-    <%= link_to 'Memberships', memberships_url %>
 
     <%= yield %>
     <% if user_signed_in? %>
