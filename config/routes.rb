@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'pages/index'
   get 'home/index'
   devise_for :users
@@ -7,9 +6,18 @@ Rails.application.routes.draw do
   root to: "pages#index"
   
   resources :organisations
+  resources :organisation_memberships
+
   resources :groups
-  resources :memberships
+  resources :group_memberships
+
   resources :locations
+  resources :location_memberships
+
+
+  resources :memberships
+
+  get '/memberships_dashboard', to: 'memberships_dashboard#index'
   # Defines the root path route ("/")
   # root "articles#index"
 end
