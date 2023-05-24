@@ -1,0 +1,11 @@
+<h1>Memberships</h1>
+
+<% @memberships.each do |membership| %>
+  <p>
+    <%= membership.user.email %> - <%= membership.organisation.name %> - <%= membership.group.name if membership.group.present? %>
+    <%= link_to 'Show', membership %> |
+    <%= link_to 'Delete', membership, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>
+
+<%= link_to 'New Membership', new_membership_path %>
