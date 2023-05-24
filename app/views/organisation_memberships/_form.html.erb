@@ -1,0 +1,27 @@
+<%= form_with(model: organisation_membership, local: true) do |form| %>
+  <% if organisation_membership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(organisation_membership.errors.count, "error") %> prohibited this organisation_membership from being saved:</h2>
+
+      <ul>
+        <% organisation_membership.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select(:user_id, User.all, :id, :email) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :organisation_id %>
+    <%= form.collection_select(:organisation_id, Organisation.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<%= form_with(model: location_membership, local: true) do |form| %>
+  <% if location_membership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(location_membership.errors.count, "error") %> prohibited this location_membership from being saved:</h2>
+
+      <ul>
+        <% location_membership.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select(:user_id, User.all, :id, :email) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location_id %>
+    <%= form.collection_select(:location_id, Location.all, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

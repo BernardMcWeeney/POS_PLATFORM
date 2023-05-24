@@ -1,0 +1,12 @@
+<p>
+  <strong>User:</strong>
+  <%= @group_membership.user.email %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @group_membership.group.name %>
+</p>
+
+<%= link_to 'Edit', edit_group_membership_path(@group_membership) %> |
+<%= link_to 'Back', group_memberships_path %>

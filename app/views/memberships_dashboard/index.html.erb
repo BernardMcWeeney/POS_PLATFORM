@@ -1,0 +1,76 @@
+<h1>Memberships Dashboard</h1>
+
+<h2>Organisation Memberships</h2>
+<p>
+  There are <%= @organisation_memberships.count %> organisation memberships.
+</p>
+<%= link_to 'New Organisation Membership', new_organisation_membership_path %>
+<table>
+  <tr>
+    <th>User Email</th>
+    <th>Organisation Name</th>
+    <th>Created At</th>
+    <th>Actions</th>
+  </tr>
+  <% @organisation_memberships.each do |membership| %>
+    <tr>
+      <td><%= membership.user.email %></td>
+      <td><%= membership.organisation.name %></td>
+      <td><%= membership.created_at %></td>
+      <td>
+        <%= link_to 'Edit', edit_organisation_membership_path(membership) %> |
+        <%= button_to 'Delete', organisation_membership_path(membership), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Group Memberships</h2>
+<p>
+  There are <%= @group_memberships.count %> group memberships.
+</p>
+<%= link_to 'New Group Membership', new_group_membership_path %>
+<table>
+  <tr>
+    <th>User Email</th>
+    <th>Group Name</th>
+    <th>Created At</th>
+    <th>Actions</th>
+  </tr>
+  <% @group_memberships.each do |membership| %>
+    <tr>
+      <td><%= membership.user.email %></td>
+      <td><%= membership.group.name %></td>
+      <td><%= membership.created_at %></td>
+      <td>
+        <%= link_to 'Edit', edit_group_membership_path(membership) %> |
+        <%= button_to 'Delete', group_membership_path(membership), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Location Memberships</h2>
+<p>
+  There are <%= @location_memberships.count %> location memberships.
+</p>
+<%= link_to 'New Location Membership', new_location_membership_path %>
+<table>
+  <tr>
+    <th>User Email</th>
+    <th>Location Name</th>
+    <th>Created At</th>
+    <th>Actions</th>
+  </tr>
+  <% @location_memberships.each do |membership| %>
+    <tr>
+      <td><%= membership.user.email %></td>
+      <td><%= membership.location.name %></td>
+      <td><%= membership.created_at %></td>
+      <td>
+        <%= link_to 'Edit', edit_location_membership_path(membership) %> |
+        <%= button_to 'Delete', location_membership_path(membership), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>

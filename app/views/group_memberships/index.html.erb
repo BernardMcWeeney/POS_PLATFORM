@@ -1,0 +1,24 @@
+<h1>Group Memberships</h1>
+
+<%= link_to 'New Group Membership', new_group_membership_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Group</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @group_memberships.each do |group_membership| %>
+      <tr>
+        <td><%= group_membership.user.email %></td>
+        <td><%= group_membership.group.name %></td>
+        <td><%= link_to 'Edit', edit_group_membership_path(group_membership) %></td>
+        <td><%= link_to 'Destroy', group_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

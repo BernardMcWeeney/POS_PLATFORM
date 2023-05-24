@@ -1,0 +1,24 @@
+<h1>Location Memberships</h1>
+
+<%= link_to 'New Location Membership', new_location_membership_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Location</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @location_memberships.each do |location_membership| %>
+      <tr>
+        <td><%= location_membership.user.email %></td>
+        <td><%= location_membership.location.name %></td>
+        <td><%= link_to 'Edit', edit_location_membership_path(location_membership) %></td>
+        <td><%= link_to 'Destroy', location_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

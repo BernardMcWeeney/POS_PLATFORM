@@ -1,0 +1,24 @@
+<h1>Organisation Memberships</h1>
+
+<%= link_to 'New Organisation Membership', new_organisation_membership_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Organisation</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organisation_memberships.each do |organisation_membership| %>
+      <tr>
+        <td><%= organisation_membership.user.email %></td>
+        <td><%= organisation_membership.organisation.name %></td>
+        <td><%= link_to 'Edit', edit_organisation_membership_path(organisation_membership) %></td>
+        <td><%= link_to 'Destroy', organisation_membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
