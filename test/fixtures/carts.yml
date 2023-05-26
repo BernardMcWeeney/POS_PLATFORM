@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 9.99
+  tax: 9.99
+  status: MyString
+  user: one
+  location: one
+  cart_number: 1
+
+two:
+  total: 9.99
+  tax: 9.99
+  status: MyString
+  user: two
+  location: two
+  cart_number: 1

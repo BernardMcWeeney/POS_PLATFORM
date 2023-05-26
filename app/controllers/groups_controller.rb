@@ -43,6 +43,32 @@ class GroupsController < ApplicationController
     redirect_to groups_url, notice: 'Group was successfully destroyed.'
   end
 
+  def assign_product
+    # You'll need to get the product, location, and group based on your application's context
+    product = Product.find(params[:product_id])
+    location = Location.find(params[:location_id])
+    group = Group.find(params[:group_id])
+    assignment_type = params[:assignment_type]  # This should be 'mandatory' or 'recommended'
+  
+    ProductAssignment.create(product: product, location: location, group: group, assignment_type: assignment_type)
+  end
+
+  def change_product_assignment
+    # You'll need to get the product, location, and group based on your application's context
+    product = Product.find(params[:product_id])
+    location = Location.find(params[:location_id])
+    group = Group.find(params[:group_id])
+    assignment_type = params[:assignment_type]  # This should be 'mandatory' or 'recommended'
+  
+    assignment = ProductAssignment.find_by(product: product, location: location, group: group)
+    assignment.update(assignment_type: assignment_type)
+  
+    # If you're changing the location:
+    new_location = Location.find(params[:new_location_id])
+    assignment.update(location: new_location)
+  end
+  
+
   private
     def set_group
       @group = Group.find(params[:id])

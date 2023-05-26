@@ -31,6 +31,28 @@
           <%= link_to 'Blank', memberships_url %>
         </div>
       </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">POS</a>
+        <div class="dropdown-content">
+          <%= link_to 'Products', products_url %>
+          <%= link_to 'Carts', cart_path(current_cart) %>
+          <%= link_to 'Orders', orders_url %>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Switch Location</a>
+        <div class="dropdown-content">
+          <p>Current Location: <%= current_location.name %></p>
+          <% if current_user && current_user.locations.any? %>
+            <div>
+              <%= form_with url: switch_location_path, method: :post do |form| %>
+                <%= form.collection_select :location_id, current_user.locations, :id, :name, {prompt: true}, { selected: current_location.try(:id), onchange: 'this.form.submit()' } %>
+
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </li>
     </ul>
   </header>
     <p class="notice"><%= notice %></p>
@@ -45,6 +67,5 @@
       <%= link_to "Sign up", new_user_registration_path %><br>
       <%= link_to "Login", new_user_session_path %>
     <% end %>
-
   </body>
 </html>

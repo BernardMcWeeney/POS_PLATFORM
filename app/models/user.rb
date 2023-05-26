@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :locations, through: :location_memberships
   validates :first_name, presence: true
 
+  has_many :carts
+  has_many :orders
+
   rolify
 
   after_create :assign_default_role
@@ -23,6 +26,9 @@ class User < ApplicationRecord
   def onboarding_incomplete?
     !self.onboarding_completed
   end
-  
+
+  def cart_for_location(location)
+    self.carts.find_or_create_by(location: location)
+  end
 
 end
