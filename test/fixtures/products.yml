@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  price: 9.99
+  group_assignment_type: MyString
+  featured: false
+  stocked: 1
+  sku: MyString
+  location: one
+  group: one
+
+two:
+  name: MyString
+  description: MyText
+  price: 9.99
+  group_assignment_type: MyString
+  featured: false
+  stocked: 1
+  sku: MyString
+  location: two
+  group: two

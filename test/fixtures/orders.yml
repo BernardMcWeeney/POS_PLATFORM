@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_number: MyString
+  total_price: 9.99
+  status: MyString
+  location: one
+  user: one
+  payment_method: MyString
+  payment_status: MyString
+
+two:
+  order_number: MyString
+  total_price: 9.99
+  status: MyString
+  location: two
+  user: two
+  payment_method: MyString
+  payment_status: MyString

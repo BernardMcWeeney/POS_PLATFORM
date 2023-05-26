@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_130236) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -66,6 +66,35 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
     t.index ["group_id"], name: "index_associations_on_group_id"
   end
 
+  create_table "cart_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.decimal "total"
+    t.integer "cart_id", null: false
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.string "name"
+    t.decimal "price"
+    t.string "sku"
+    t.decimal "tax", precision: 10, scale: 2, default: "0.0"
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["product_id"], name: "index_cart_items_on_product_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.decimal "total"
+    t.decimal "tax"
+    t.string "status"
+    t.integer "user_id", null: false
+    t.integer "location_id", null: false
+    t.integer "cart_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_carts_on_location_id"
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "group_memberships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
@@ -118,6 +147,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "quantity", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.string "name"
+    t.string "sku"
+    t.decimal "tax", precision: 10, scale: 2, default: "0.0"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "order_number"
+    t.decimal "total_price"
+    t.string "status"
+    t.integer "location_id", null: false
+    t.integer "user_id", null: false
+    t.string "payment_method"
+    t.string "payment_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_orders_on_location_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "organisation_memberships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "organisation_id", null: false
@@ -136,6 +192,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
     t.text "web_links"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "product_assignments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "location_id", null: false
+    t.integer "product_id", null: false
+    t.string "assignment_type"
+    t.index ["location_id"], name: "index_product_assignments_on_location_id"
+    t.index ["product_id"], name: "index_product_assignments_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price"
+    t.string "group_assignment_type"
+    t.boolean "featured"
+    t.integer "stocked"
+    t.string "sku"
+    t.integer "location_id", null: false
+    t.integer "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "product_status"
+    t.index ["group_id"], name: "index_products_on_group_id"
+    t.index ["location_id"], name: "index_products_on_location_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -180,6 +263,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
   add_foreign_key "association_memberships", "associations"
   add_foreign_key "association_memberships", "users"
   add_foreign_key "associations", "groups"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "products"
+  add_foreign_key "carts", "locations"
+  add_foreign_key "carts", "users"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
   add_foreign_key "groups", "organisations"
@@ -190,6 +277,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_110237) do
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "organisations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "locations"
+  add_foreign_key "orders", "users"
   add_foreign_key "organisation_memberships", "organisations"
   add_foreign_key "organisation_memberships", "users"
+  add_foreign_key "product_assignments", "locations"
+  add_foreign_key "product_assignments", "products"
+  add_foreign_key "products", "groups"
+  add_foreign_key "products", "locations"
 end
